@@ -21,7 +21,7 @@ function App() {
     setDownloadData(null);
 
     try {
-      const response = await axios.get(`https://itzpire.com/download/youtube/v2?url=${url}format=${format}`, {
+      const response = await axios.get(`https://itzpire.com/download/youtube/v2`, {
         params: {
           url: url,
           format: format === 'mp4' ? 'mp4' : 'mp3'
