@@ -38,7 +38,7 @@ function App() {
         setError('Failed to fetch video. Please check the URL and try again.');
       }
     } catch (err) {
-      console.error(err);
+      console.error('Error:', err.response || err.message);
       setError('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
