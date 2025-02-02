@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Force Tailwind utilities to take effect */
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-purple-900 {
+  --tw-gradient-from: #581c87;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(88 28 135 / 0));
+}
+
+.via-purple-800 {
+  --tw-gradient-stops: var(--tw-gradient-from), #6b21a8, var(--tw-gradient-to, rgb(107 33 168 / 0));
+}
+
+.to-purple-900 {
+  --tw-gradient-to: #581c87;
+}
