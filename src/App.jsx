@@ -8,8 +8,8 @@ function App() {
   const [error, setError] = useState('');
   const [downloadData, setDownloadData] = useState(null);
   const [downloadOptions, setDownloadOptions] = useState([]);
-  const [format, setFormat] = useState('mp3');
-  const [mp3Quality, setMp3Quality] = useState('128kbps'); // Default quality for mp3
+  const [format, setFormat] = useState('mp4'); // Default to mp4 for video
+  const [mp3Quality, setMp3Quality] = useState('128kbps'); // Default quality for mp3, will be removed later.
 
   const handleDownload = async (e) => {
     e.preventDefault();
@@ -124,34 +124,6 @@ function App() {
                 </button>
               </div>
 
-              {/* MP3 Quality Selection */}
-              {format === 'mp3' && (
-                <div className="flex justify-center gap-4 my-4">
-                  <button
-                    type="button"
-                    onClick={() => setMp3Quality('128kbps')}
-                    className={`px-6 py-3 rounded-lg transition-colors duration-300 ${
-                      mp3Quality === '128kbps'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
-                    }`}
-                  >
-                    128kbps
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setMp3Quality('192kbps')}
-                    className={`px-6 py-3 rounded-lg transition-colors duration-300 ${
-                      mp3Quality === '192kbps'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
-                    }`}
-                  >
-                    320kbps
-                  </button>
-                </div>
-              )}
-
               <div className="flex justify-center">
                 <button
                   type="submit"
@@ -191,37 +163,19 @@ function App() {
                 <a
                   href={downloadData.url}
                   download
-                  className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 rounded-xl font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 rounded-xl font-semibold transition-colors duration-300"
                 >
                   <FaDownload className="mr-2" />
                   Download {format.toUpperCase()}
                 </a>
                 <p className="text-sm text-purple-300">
-                  Format: {format === 'mp4' ? 'MP4 (720p)' : `MP3 (${mp3Quality})`}
+                  Format: {format === 'mp4' ? 'MP4 (720p)' : 'MP3'}
                 </p>
               </div>
             </div>
           )}
 
-          {/* MP3 Options List */}
-          {format === 'mp3' && downloadOptions.length > 0 && (
-            <div className="bg-purple-950/40 p-6 rounded-xl mb-8">
-              <h3 className="text-xl font-semibold mb-4 text-center">MP3 Quality Options</h3>
-              <ul className="space-y-4">
-                {downloadOptions.map((item, index) => (
-                  <li key={index} className="flex justify-between items-center text-purple-200">
-                    <span>{item.quality}</span>
-                    <a
-                      href={item.downloadUrl}
-                      className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-semibold transition-colors duration-300"
-                    >
-                      Download
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {/* MP3 Options List (Removed as per request) */}
         </div>
       </div>
     </div>
