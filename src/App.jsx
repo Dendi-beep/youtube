@@ -24,7 +24,7 @@ function App() {
       const response = await axios.get(`https://api-two-delta-18.vercel.app/api/ap`, {
         params: {
           url: url,
-          format: format === 'mp4' ? '720' : 'mp3'
+          format: format === 'mp4' ? 'mp4' : 'mp3'
         }
       });
   
@@ -119,7 +119,7 @@ function App() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setFormat('720')}
+                  onClick={() => setFormat('mp4')}
                   className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-colors duration-300 ${
                     format === 'mp4'
                       ? 'bg-purple-600 text-white'
