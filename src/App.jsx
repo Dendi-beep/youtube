@@ -15,19 +15,19 @@ function App() {
       setError('Please enter a YouTube URL');
       return;
     }
-
+  
     setLoading(true);
     setError('');
     setDownloadData(null);
-
+  
     try {
-      const response = await axios.get(`https://itzpire.com/download/youtube/v2`, {
+      const response = await axios.get(`https://youtube-proxy.vercel.app/api/proxy`, {
         params: {
           url: url,
           format: format === 'mp4' ? 'mp4' : 'mp3'
         }
       });
-
+  
       if (response.data.status === 'success') {
         setDownloadData({
           url: response.data.downloadUrl,
@@ -44,6 +44,7 @@ function App() {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 text-white">
