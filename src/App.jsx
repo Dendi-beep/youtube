@@ -34,12 +34,7 @@ function App() {
 
       const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}`;
       const response = await axios.get(requestUrl);
-      console.log("Download Data:", downloadData);
-      console.log("Format:", format);
-
-
-      console.log("Request URL:", requestUrl);
-      console.log("Response Data:", response.data);
+     
 
       if (response.data.status === "success") {
         if (format === 'mp4'){
@@ -93,6 +88,18 @@ function App() {
             <p className="text-lg md:text-xl text-purple-200 max-w-2xl mx-auto">
               Convert and download YouTube videos in your preferred format
             </p>
+          </div>
+
+            {/* Instructions */}
+            <div className="bg-purple-950/40 p-6 rounded-xl mb-8">
+            <h3 className="text-xl font-semibold mb-4 text-center">How It Works</h3>
+            <ol className="list-decimal list-inside space-y-2 text-purple-200">
+              <li>Copy the YouTube video URL you want to download</li>
+              <li>Paste the URL in the input field below</li>
+              <li>Select your preferred format (MP3 or MP4)</li>
+              <li>Click Download and wait for processing</li>
+              <li>Click the Download button when it appears</li>
+            </ol>
           </div>
 
           {/* Form */}
@@ -179,7 +186,7 @@ function App() {
                 <a
                   href={downloadData.url}
                   download
-                  className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 rounded-xl font-semibold transition-colors duration-300"
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-xl font-semibold transition-colors duration-300"
                 >
                   <FaDownload className="mr-2" />
                   Download {format.toUpperCase()}
@@ -202,7 +209,7 @@ function App() {
                     <a
                       href={option.downloadUrl}
                       download
-                      className="bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700 transition-colors duration-300"
+                      className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-xl transition-colors duration-300"
                     >
                       Download
                     </a>
@@ -211,6 +218,11 @@ function App() {
               </ul>
             </div>
           )}
+
+           {/* Footer */}
+           <div className="text-center mt-16 text-purple-300 text-sm">
+            <p>© {new Date().getFullYear()} YouTube Downloader. For personal use only.</p>
+          </div>
         </div>
       </div>
     </div>
