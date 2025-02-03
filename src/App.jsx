@@ -21,7 +21,7 @@ function App() {
     setDownloadData(null);
   
     try {
-      const response = await axios.get(`https://api-two-delta-18.vercel.app/api`, {
+      const response = await axios.get(`https://api-two-delta-18.vercel.app/api/ap`, {
         params: {
           url: url,
           format: format === 'mp4' ? 'mp4' : 'mp3'
