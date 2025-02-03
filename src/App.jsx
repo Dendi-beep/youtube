@@ -24,7 +24,7 @@ function App() {
       const response = await axios.get(`https://api-two-delta-18.vercel.app/api/ap`, {
         params: {
           url: url,
-          format: format === 'mp4' ? 'mp4' : 'mp3'
+          format: format //=== 'mp4' ? 'mp4' : 'mp3'
         }
         
       });
