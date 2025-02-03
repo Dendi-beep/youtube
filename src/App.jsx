@@ -34,6 +34,9 @@ function App() {
 
       const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}`;
       const response = await axios.get(requestUrl);
+      console.log("Download Data:", downloadData);
+      console.log("Format:", format);
+
 
       console.log("Request URL:", requestUrl);
       console.log("Response Data:", response.data);
