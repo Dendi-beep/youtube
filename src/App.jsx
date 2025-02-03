@@ -7,53 +7,46 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [downloadData, setDownloadData] = useState(null);
+  const [downloadOptions, setDownloadOptions] = useState([]);
   const [format, setFormat] = useState('mp3');
   const [mp3Quality, setMp3Quality] = useState('128kbps'); // Default quality for mp3
 
   const handleDownload = async (e) => {
     e.preventDefault();
     if (!url) {
-      setError('Please enter a YouTube URL');
+      setError("Please enter a YouTube URL");
       return;
     }
 
     setLoading(true);
-    setError('');
-    setDownloadData(null);
+    setError("");
+    setDownloadOptions([]);
 
     try {
-      let apiUrl = '';
-      let token = '';
+      let apiUrl = "";
+      let token = "QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ";
 
-      if (format === 'mp4') {
-        apiUrl = 'https://api-dhx.xyz/api/v1/ytmp4-dl';
-        token = 'QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ';
-      } else if (format === 'mp3') {
-        apiUrl = 'https://api-dhx.xyz/api/v1/ytmp3-dl';
-        token = 'QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ';
+      if (format === "mp4") {
+        apiUrl = "https://api-dhx.xyz/api/v1/ytmp4-dl";
+      } else if (format === "mp3") {
+        apiUrl = "https://api-dhx.xyz/api/v1/ytmp3-dl";
       }
 
-      const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}&quality=${mp3Quality}`;
-
+      const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}`;
       const response = await axios.get(requestUrl);
 
-      
+      console.log("Request URL:", requestUrl);
+      console.log("Response Data:", response.data);
 
-      console.log("Request link:", requestUrl);
-      console.log(response.data);
-
-      if (response.data.status === 'success') {
-        setDownloadData({
-          url: response.data.data.downloadUrl,
-          title: response.data.data.title || 'Download File',
-        });
+      if (response.data.status === "success") {
+        setDownloadOptions(response.data.data);  // assuming response.data.data contains the list of options
+        setDownloadData(response.data.data[0]); // setting the first option as default
       } else {
-        console.error(response.data);
-        setError('Failed to fetch video. Please check the URL and try again.');
+        setError("Failed to fetch video. Please check the URL and try again.");
       }
     } catch (err) {
-      console.error('Error:', err.response || err.message);
-      setError('An error occurred. Please try again later.');
+      console.error("Error:", err.response || err.message);
+      setError("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -84,18 +77,6 @@ function App() {
             <p className="text-lg md:text-xl text-purple-200 max-w-2xl mx-auto">
               Convert and download YouTube videos in your preferred format
             </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-purple-950/40 p-6 rounded-xl mb-8">
-            <h3 className="text-xl font-semibold mb-4 text-center">How It Works</h3>
-            <ol className="list-decimal list-inside space-y-2 text-purple-200">
-              <li>Copy the YouTube video URL you want to download</li>
-              <li>Paste the URL in the input field below</li>
-              <li>Select your preferred format (MP3 or MP4)</li>
-              <li>Click Download and wait for processing</li>
-              <li>Click the Download button when it appears</li>
-            </ol>
           </div>
 
           {/* Form */}
@@ -150,7 +131,9 @@ function App() {
                     type="button"
                     onClick={() => setMp3Quality('128kbps')}
                     className={`px-6 py-3 rounded-lg transition-colors duration-300 ${
-                      mp3Quality === '128kbps' ? 'bg-purple-600 text-white' : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
+                      mp3Quality === '128kbps'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
                     }`}
                   >
                     128kbps
@@ -159,7 +142,9 @@ function App() {
                     type="button"
                     onClick={() => setMp3Quality('192kbps')}
                     className={`px-6 py-3 rounded-lg transition-colors duration-300 ${
-                      mp3Quality === '192kbps' ? 'bg-purple-600 text-white' : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
+                      mp3Quality === '192kbps'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
                     }`}
                   >
                     320kbps
@@ -218,10 +203,25 @@ function App() {
             </div>
           )}
 
-          {/* Footer */}
-          <div className="text-center mt-16 text-purple-300 text-sm">
-            <p>© {new Date().getFullYear()} YouTube Downloader. For personal use only.</p>
-          </div>
+          {/* MP3 Options List */}
+          {format === 'mp3' && downloadOptions.length > 0 && (
+            <div className="bg-purple-950/40 p-6 rounded-xl mb-8">
+              <h3 className="text-xl font-semibold mb-4 text-center">MP3 Quality Options</h3>
+              <ul className="space-y-4">
+                {downloadOptions.map((item, index) => (
+                  <li key={index} className="flex justify-between items-center text-purple-200">
+                    <span>{item.quality}</span>
+                    <a
+                      href={item.downloadUrl}
+                      className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-semibold transition-colors duration-300"
+                    >
+                      Download
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
