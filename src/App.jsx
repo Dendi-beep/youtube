@@ -42,8 +42,18 @@ function App() {
       console.log("Response Data:", response.data);
 
       if (response.data.status === "success") {
-        setDownloadOptions(response.data.data);  // assuming response.data.data contains the list of options
-        setDownloadData(response.data.data[0]); // setting the first option as default
+        if (format === 'mp4'){
+          setDownloadData(response.data.data);
+          setDownloadOptions([]);
+
+        }else if(format === 'mp3'){
+
+          setDownloadOptions(response.data.data)
+          setDownloadData(null);
+
+        }
+        //setDownloadOptions(response.data.data);  // assuming response.data.data contains the list of options
+        //setDownloadData(response.data.data[0]); // setting the first option as default
       } else {
         setError("Failed to fetch video. Please check the URL and try again.");
       }
