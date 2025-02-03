@@ -154,14 +154,14 @@ function App() {
           )}
 
           {/* Download Section */}
-          {downloadData && (
+          {downloadData && format === 'mp4' && (
             <div className="bg-gradient-to-r from-purple-900/50 to-purple-800/50 border-2 border-purple-700/50 rounded-xl p-8 text-center mb-12 animate-fade-in shadow-2xl">
               <h2 className="text-xl md:text-2xl font-semibold mb-6 line-clamp-2">
                 Ready to Download: {downloadData.title}
               </h2>
               <div className="flex flex-col items-center gap-4">
                 <a
-                  href={downloadData.url}
+                  href={downloadData.downloadUrl}
                   download
                   className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 rounded-xl font-semibold transition-colors duration-300"
                 >
