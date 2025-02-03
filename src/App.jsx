@@ -30,8 +30,8 @@ function App() {
   
       if (response.data.status === 'success') {
         setDownloadData({
-          url: response.data.downloadUrl,
-          title: response.data.title || 'Download File'
+          url: response.data.data.downloadUrl,
+          title: response.data.data.title || 'Download File'
         });
       } else {
         console.error(response.data);
