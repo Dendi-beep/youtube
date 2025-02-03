@@ -8,12 +8,13 @@ function App() {
   const [error, setError] = useState('');
   const [downloadData, setDownloadData] = useState(null);
   const [format, setFormat] = useState('mp3');
+  const [mp3Quality, setMp3Quality] = useState('128kbps'); // Default quality for mp3
 
   const handleDownload = async (e) => {
     e.preventDefault();
     if (!url) {
-        setError('Please enter a YouTube URL');
-        return;
+      setError('Please enter a YouTube URL');
+      return;
     }
 
     setLoading(true);
@@ -21,45 +22,40 @@ function App() {
     setDownloadData(null);
 
     try {
-        
-        let apiUrl = '';
-        let token = '';
+      let apiUrl = '';
+      let token = '';
 
-        if (format === 'mp4') {
-            apiUrl = 'https://api-dhx.xyz/api/v1/ytmp4-dl';  
-            token = 'QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ';  
-        } else if (format === 'mp3') {
-            apiUrl = 'https://api-dhx.xyz/api/v1/ytmp3-dl'; 
-            token = 'QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ'; 
-        }
+      if (format === 'mp4') {
+        apiUrl = 'https://api-dhx.xyz/api/v1/ytmp4-dl';
+        token = 'QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ';
+      } else if (format === 'mp3') {
+        apiUrl = 'https://api-dhx.xyz/api/v1/ytmp3-dl';
+        token = 'QkVJcO60NbI5trOJjsismvQK1hCa8LzsF32Vufa517xxLMUD547S4vEH1HWZ';
+      }
 
-       
-        const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}`;
+      const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}&quality=${mp3Quality}`;
 
-        
-        const response = await axios.get(requestUrl);
+      const response = await axios.get(requestUrl);
 
-        console.log("Request link:", requestUrl);
-        console.log(response.data);
+      console.log("Request link:", requestUrl);
+      console.log(response.data);
 
-        if (response.data.status === 'success') {
-            setDownloadData({
-                url: response.data.data.downloadUrl,
-                title: response.data.data.title || 'Download File',
-                //image: response.data.data.image
-            });
-        } else {
-            console.error(response.data);
-            setError('Failed to fetch video. Please check the URL and try again.');
-        }
+      if (response.data.status === 'success') {
+        setDownloadData({
+          url: response.data.data.downloadUrl,
+          title: response.data.data.title || 'Download File',
+        });
+      } else {
+        console.error(response.data);
+        setError('Failed to fetch video. Please check the URL and try again.');
+      }
     } catch (err) {
-        console.error('Error:', err.response || err.message);
-        setError('An error occurred. Please try again later.');
+      console.error('Error:', err.response || err.message);
+      setError('An error occurred. Please try again later.');
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
-
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 text-white">
@@ -145,6 +141,30 @@ function App() {
                 </button>
               </div>
 
+              {/* MP3 Quality Selection */}
+              {format === 'mp3' && (
+                <div className="flex justify-center gap-4 my-4">
+                  <button
+                    type="button"
+                    onClick={() => setMp3Quality('128kbps')}
+                    className={`px-6 py-3 rounded-lg transition-colors duration-300 ${
+                      mp3Quality === '128kbps' ? 'bg-purple-600 text-white' : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
+                    }`}
+                  >
+                    128kbps
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMp3Quality('320kbps')}
+                    className={`px-6 py-3 rounded-lg transition-colors duration-300 ${
+                      mp3Quality === '320kbps' ? 'bg-purple-600 text-white' : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
+                    }`}
+                  >
+                    320kbps
+                  </button>
+                </div>
+              )}
+
               <div className="flex justify-center">
                 <button
                   type="submit"
@@ -176,7 +196,6 @@ function App() {
 
           {/* Download Section */}
           {downloadData && (
-
             <div className="bg-gradient-to-r from-purple-900/50 to-purple-800/50 border-2 border-purple-700/50 rounded-xl p-8 text-center mb-12 animate-fade-in shadow-2xl">
               <h2 className="text-xl md:text-2xl font-semibold mb-6 line-clamp-2">
                 Ready to Download: {downloadData.title}
@@ -191,43 +210,11 @@ function App() {
                   Download {format.toUpperCase()}
                 </a>
                 <p className="text-sm text-purple-300">
-                  Format: {format === 'mp4' ? 'MP4 (720p)' : 'MP3'}
+                  Format: {format === 'mp4' ? 'MP4 (720p)' : `MP3 (${mp3Quality})`}
                 </p>
               </div>
             </div>
           )}
-
-          {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            {[
-              {
-                icon: <FaMusic />,
-                title: "MP3 Audio",
-                description: "Extract high-quality audio from videos"
-              },
-              {
-                icon: <FaVideo />,
-                title: "MP4 Video",
-                description: "Download videos in 720p quality"
-              },
-              {
-                icon: <FaYoutube />,
-                title: "Easy to Use",
-                description: "Simple interface for both audio and video downloads"
-              }
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="bg-purple-950/40 p-6 rounded-xl text-center transition-transform duration-300 hover:scale-105 border-2 border-purple-700/20 hover:border-purple-600/50"
-              >
-                <div className="bg-gradient-to-r from-purple-600 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <span className="text-2xl">{feature.icon}</span>
-                </div>
-                <h3 className="font-semibold text-xl mb-3">{feature.title}</h3>
-                <p className="text-purple-200 text-sm">{feature.description}</p>
-              </div>
-            ))}
-          </div>
 
           {/* Footer */}
           <div className="text-center mt-16 text-purple-300 text-sm">
