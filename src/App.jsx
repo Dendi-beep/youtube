@@ -21,7 +21,7 @@ function App() {
     setDownloadData(null);
   
     try {
-      const response = await axios.get(`https://api-8drhrfank-dendis-projects-7d524baf.vercel.app/`, {
+      const response = await axios.get(`https://api-8drhrfank-dendis-projects-7d524baf.vercel.app/api`, {
         params: {
           url: url,
           format: format === 'mp4' ? 'mp4' : 'mp3'
