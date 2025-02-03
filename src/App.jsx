@@ -43,7 +43,10 @@ function App() {
 
       if (response.data.status === "success") {
         if (format === 'mp4'){
-          setDownloadData(response.data.data);
+          setDownloadData({
+            url: response.data.data.downloadUrl,
+            title: response.data.data.title || 'Download File',
+          });
           setDownloadOptions([]);
 
         }else if(format === 'mp3'){
