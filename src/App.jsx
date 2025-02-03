@@ -121,7 +121,7 @@ function App() {
                   type="button"
                   onClick={() => setFormat('720')}
                   className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-colors duration-300 ${
-                    format === '720'
+                    format === 'mp4'
                       ? 'bg-purple-600 text-white'
                       : 'bg-purple-900/50 text-purple-300 hover:bg-purple-800/50'
                   }`}
