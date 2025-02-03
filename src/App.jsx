@@ -198,26 +198,61 @@ function App() {
             </div>
           )}
 
+          
           {/* MP3 Quality Options */}
-          {format === 'mp3' && downloadOptions.length > 0 && (
-            <div className="bg-purple-900/50 p-6 rounded-xl text-center text-white mb-8">
-              <h3 className="text-lg font-semibold mb-4">Select MP3 Quality</h3>
-              <ul className="space-y-4">
-                {downloadOptions.map((option, index) => (
-                  <li key={index} className="flex justify-between items-center">
-                    <span>{option.quality}</span>
-                    <a
-                      href={option.downloadUrl}
-                      download
-                      className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-xl transition-colors duration-300"
-                    >
-                      Download
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+{format === 'mp3' && downloadOptions.length > 0 && (
+  <div className="bg-purple-900/50 p-6 rounded-xl text-center text-white mb-8 sm:px-8 md:px-12 lg:px-16">
+    <h3 className="text-lg font-semibold mb-4">Select MP3 Quality</h3>
+    <ul className="space-y-4 sm:space-y-6 md:space-y-8">
+      {downloadOptions.map((option, index) => (
+        <li key={index} className="flex flex-col sm:flex-row justify-between items-center sm:space-x-4 space-y-4 sm:space-y-0">
+          <span className="text-sm sm:text-lg">{option.quality}</span>
+          <a
+            href={option.downloadUrl}
+            download
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-xl transition-colors duration-300 w-full sm:w-auto text-center"
+          >
+            Download
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+
+           {/* Features */}
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            {[
+              {
+                icon: <FaMusic />,
+                title: "MP3 Audio",
+                description: "Extract high-quality audio from videos"
+              },
+              {
+                icon: <FaVideo />,
+                title: "MP4 Video",
+                description: "Download videos in 720p quality"
+              },
+              {
+                icon: <FaYoutube />,
+                title: "Easy to Use",
+                description: "Simple interface for both audio and video downloads"
+              }
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="bg-purple-950/40 p-6 rounded-xl text-center transition-transform duration-300 hover:scale-105 border-2 border-purple-700/20 hover:border-purple-600/50"
+              >
+                <div className="bg-gradient-to-r from-purple-600 to-pink-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <span className="text-2xl">{feature.icon}</span>
+                </div>
+                <h3 className="font-semibold text-xl mb-3">{feature.title}</h3>
+                <p className="text-purple-200 text-sm">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+
 
            {/* Footer */}
            <div className="text-center mt-16 text-purple-300 text-sm">
