@@ -169,7 +169,7 @@ function App() {
                   Download {format.toUpperCase()}
                 </a>
                 <p className="text-sm text-purple-300">
-                  Format: {format === 'mp4' ? 'MP4 (720p)' : 'MP3'}
+                  Format: {format === 'mp4'}
                 </p>
               </div>
             </div>
