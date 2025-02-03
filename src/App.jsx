@@ -26,7 +26,9 @@ function App() {
           url: url,
           format: format === 'mp4' ? 'mp4' : 'mp3'
         }
+        
       });
+      console.log("Request link:",format);
   
       if (response.data.status === 'success') {
         setDownloadData({
