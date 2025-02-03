@@ -9,7 +9,7 @@ function App() {
   const [downloadData, setDownloadData] = useState(null);
   const [downloadOptions, setDownloadOptions] = useState([]);
   const [format, setFormat] = useState('mp4'); // Default to mp4 for video
-  const [mp3Quality, setMp3Quality] = useState('128kbps'); // Default quality for mp3, will be removed later.
+  const [selectedMp3Quality, setSelectedMp3Quality] = useState('');
 
   const handleDownload = async (e) => {
     e.preventDefault();
@@ -175,7 +175,26 @@ function App() {
             </div>
           )}
 
-          {/* MP3 Options List (Removed as per request) */}
+          {/* MP3 Quality Options */}
+          {format === 'mp3' && downloadOptions.length > 0 && (
+            <div className="bg-purple-900/50 p-6 rounded-xl text-center text-white mb-8">
+              <h3 className="text-lg font-semibold mb-4">Select MP3 Quality</h3>
+              <ul className="space-y-4">
+                {downloadOptions.map((option, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span>{option.quality}</span>
+                    <a
+                      href={option.downloadUrl}
+                      download
+                      className="bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700 transition-colors duration-300"
+                    >
+                      Download
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
