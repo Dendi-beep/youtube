@@ -177,7 +177,7 @@ function App() {
               </h2>
               <div className="flex flex-col items-center gap-4">
                 <a
-                  href={downloadData.downloadUrl}
+                  href={downloadData.url}
                   download
                   className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 rounded-xl font-semibold transition-colors duration-300"
                 >
