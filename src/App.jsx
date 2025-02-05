@@ -192,7 +192,7 @@ function App() {
                   Download {format.toUpperCase()}
                 </a>
                 <p className="text-sm text-purple-300">
-                  Format : {format.toUpperCase()}
+                  Format : {'mp4'}
                 </p>
               </div>
             </div>
