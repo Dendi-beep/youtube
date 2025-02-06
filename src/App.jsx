@@ -179,7 +179,8 @@ function App() {
                 >
                   {loading ? (
                     <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent">
-                      <FaSpinner />
+                      <FaSpinner className= "text-white animate-spin" size={20} /> 
+                      <span className="ml-2">Fetching..</span>
                     </div>
                   ) : (
                     <>
