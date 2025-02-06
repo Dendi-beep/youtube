@@ -11,6 +11,25 @@ function App() {
   const [format, setFormat] = useState('mp4'); // Default to mp4 for video
   const [selectedMp3Quality, setSelectedMp3Quality] = useState('');
 
+  const fetchWithRetry = async (url, maxRetries = 3) => {
+    let attempts = 0;
+    while (attempts < maxRetries) {
+      try {
+        const response = await axios.get(url);
+        if (response.data.status === "success") {
+          return response;
+        } else {
+          throw new Error("Fetch failed");
+        }
+      } catch (error) {
+        attempts++;
+        if (attempts === maxRetries) {
+          throw error;
+        }
+      }
+    }
+  };
+
   const handleDownload = async (e) => {
     e.preventDefault();
     if (!url) {
@@ -35,24 +54,8 @@ function App() {
       const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}`;
       //const response = await axios.get(requestUrl);
 
-      const fetcWithRetry = async (url,retries) => {
-
-        for (let i = 0; i < retries; i++){
-          try {
-            const response = await axios.get(url);
-            if (response.data.status === "success") {
-              return response.data;
-            }else{
-              console.warn("Failed to fetch video. Retrying...");
-            }
-          }catch (err) {
-            console.warn(`Attempt ${i + 1} error:`, err.message || err);
-          }
-          throw new Error(`Failed to fetch video after ${retries} attempts`);
-        }
-
-      };
-      const response = await fetcWithRetry(requestUrl, 3);
+      
+      const response = await fetchWithRetry(requestUrl, 3);
 
      
      
@@ -78,7 +81,7 @@ function App() {
       }
     } catch (err) {
       console.error("Error:", err.response || err.message);
-      setError("An error occurred. Please try again later.");
+      setError("Failed to fetch video after multiple attempts. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -175,7 +178,9 @@ function App() {
                   className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-xl font-semibold transition-colors duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
-                    <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent">
+                      <FaSpinner />
+                    </div>
                   ) : (
                     <>
                       <FaDownload className="mr-2" />
