@@ -178,9 +178,7 @@ function App() {
                   className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-xl font-semibold transition-colors duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
-                    <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent">
-                      <FaSpinner className= "text-white animate-spin" size={20} /> 
-                      <span className="ml-2">Fetching..</span>
+                    <div className="w-5 h-5 border-4 border-t-transparent border-white rounded-full animate-spin">
                     </div>
                   ) : (
                     <>
