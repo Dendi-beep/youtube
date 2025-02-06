@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FaYoutube, FaDownload, FaMusic, FaLink, FaInfoCircle, FaVideo } from 'react-icons/fa';
+import { FaYoutube, FaDownload, FaMusic, FaLink, FaInfoCircle, FaVideo, FaSpinner } from 'react-icons/fa';
 
 function App() {
   const [url, setUrl] = useState('');
