@@ -33,7 +33,28 @@ function App() {
       }
 
       const requestUrl = `${apiUrl}?api_token=${token}&q=${encodeURIComponent(url)}`;
-      const response = await axios.get(requestUrl);
+      //const response = await axios.get(requestUrl);
+
+      const fetcWithRetry = async (url,retries) => {
+
+        for (let i = 0; i < retries; i++){
+          try {
+            const response = await axios.get(url);
+            if (response.data.status === "success") {
+              return response.data;
+            }else{
+              console.warn("Failed to fetch video. Retrying...");
+            }
+          }catch (err) {
+            console.warn(`Attempt ${i + 1} error:`, err.message || err);
+          }
+          throw new Error(`Failed to fetch video after ${retries} attempts`);
+        }
+
+      };
+      const response = await fetcWithRetry(requestUrl, 3);
+
+     
      
 
       if (response.data.status === "success") {
