@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FaYoutube, FaDownload, FaMusic, FaLink, FaInfoCircle, FaVideo, FaSpinner } from 'react-icons/fa';
 
+const tiktok = 'https://downloader-qxca.vercel.app/';
+
 function App() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -10,6 +12,8 @@ function App() {
   const [downloadOptions, setDownloadOptions] = useState([]);
   const [format, setFormat] = useState('mp4'); // Default to mp4 for video
   const [selectedMp3Quality, setSelectedMp3Quality] = useState('');
+
+  
 
   const fetchWithRetry = async (url, maxRetries = 3) => {
     let attempts = 0;
@@ -123,6 +127,10 @@ function App() {
               <li>Select your preferred format (MP3 or MP4)</li>
               <li>Click Download and wait for processing</li>
               <li>Click the Download button when it appears</li>
+              
+              <li>
+                <a href="{tiktok}">Click here if you want to donwload Tiktok Video</a>
+              </li>
             </ol>
           </div>
 
@@ -281,7 +289,7 @@ function App() {
 
            {/* Footer */}
            <div className="text-center mt-16 text-purple-300 text-sm">
-            <p>© {new Date().getFullYear()} YouTube Downloader. For personal use only.</p>
+            <p>© {new Date().getFullYear()} YouTube Downloader.</p>
           </div>
         </div>
       </div>
