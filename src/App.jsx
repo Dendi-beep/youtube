@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FaYoutube, FaDownload, FaMusic, FaLink, FaInfoCircle, FaVideo, FaSpinner } from 'react-icons/fa';
 
-const tiktok = 'https://downloader-qxca.vercel.app/';
+const tiktok = "https://downloader-qxca.vercel.app/";
 
 function App() {
   const [url, setUrl] = useState('');
@@ -129,7 +129,7 @@ function App() {
               <li>Click the Download button when it appears</li>
               
               <li>
-                <a href="{tiktok}">Click here if you want to donwload Tiktok Video</a>
+                <a href={tiktok}>Click here if you want to donwload Tiktok Video</a>
               </li>
             </ol>
           </div>
